@@ -12,9 +12,10 @@ app.use(express.urlencoded({ limit: "30mb", extended: true }))
 app.use(cors());
 
 app.use(cors({
-  origin: 'https://dashing-croissant-83db96.netlify.app',
-  credentials: true,
+  origin: 'https://guileless-buttercream-04252e.netlify.app',
+  credentials: true
 }));
+
 
 
 app.use("/user", userroutes);
