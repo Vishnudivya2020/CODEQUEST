@@ -12,7 +12,7 @@ app.use(express.urlencoded({ limit: "30mb", extended: true }))
 app.use(cors());
 
 app.use(cors({
-  origin: 'https://codequest-askstack.netlify.app/',
+  origin: 'https://codequest-askstack.netlify.app',
   credentials: true
 }));
 
