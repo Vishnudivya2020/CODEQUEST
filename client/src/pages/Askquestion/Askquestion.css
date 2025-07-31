@@ -1,56 +1,125 @@
 .ask-question {
-    min-height: 80vh;
-    background-color: #f1f2f3;
-  }
-  
+  width: 100%;
+  min-height: 100vh;
+  background-color: #f8f9fa;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  box-sizing: border-box;
+  margin-top: 20px;
+}
+
+.ask-ques-container {
+  width: 100%;
+  max-width: 800px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.ask-ques-container h1 {
+  font-size: 28px;
+  margin-bottom: 25px;
+  color: #333;
+  text-align: center;
+}
+
+.ask-form-container label {
+  display: block;
+  margin-bottom: 20px;
+}
+
+.ask-form-container h4 {
+  margin: 0 0 8px;
+  font-size: 18px;
+  color: #333;
+}
+
+.ask-form-container p {
+  margin: 0 0 6px;
+  font-size: 13px;
+  color: #666;
+}
+
+.ask-form-container input[type="text"],
+.ask-form-container input[type="email"],
+.ask-form-container input[type="file"],
+.ask-form-container input[type="number"],
+.ask-form-container textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 15px;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  background-color: #fefefe;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
+}
+
+.ask-form-container textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.ask-form-container input[type="text"]:focus,
+.ask-form-container input[type="email"]:focus,
+.ask-form-container textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.ask-form-container input[type="file"] {
+  padding: 5px;
+}
+
+.ask-form-container button {
+  margin-top: 8px;
+  padding: 10px 16px;
+  font-size: 14px;
+  background-color: #007bff;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.ask-form-container button:hover {
+  background-color: #0056b3;
+}
+
+.review-btn {
+  display: inline-block;
+  margin-top: 20px;
+  width: 100%;
+  background-color: #28a745;
+  border: none;
+  color: white;
+  font-size: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.review-btn:hover {
+  background-color: #218838;
+}
+
+@media screen and (max-width: 600px) {
   .ask-ques-container {
-    margin: auto;
-    padding: 0px 20px 20px 20px;
-    max-width: 1200px;
-  }
-  
-  .ask-ques-container h1 {
-    padding: 80px 0px 20px 0px;
-  }
-  
-  .ask-ques-container form .ask-form-container {
     padding: 20px;
-    background-color: white;
-    border-radius: 3px;
-    box-shadow: 0 10px 25px rgb(0 0 0 / 5%), 0 20px 48px rgb(0 0 0 / 5%),
-      0 1px 4px rgb(0 0 0 / 10%);
   }
-  
-  .ask-form-container label h4 {
-    margin-bottom: 0%;
+
+  .ask-form-container h4 {
+    font-size: 16px;
   }
-  
-  .ask-form-container label p {
-    margin: 0%;
-    font-size: 13px;
-    padding: 3px 0px;
+
+  .ask-form-container input,
+  .ask-form-container textarea,
+  .ask-form-container button {
+    font-size: 14px;
   }
-  
-  .ask-form-container label input,
-  .ask-form-container label textarea {
-    padding: 10px;
-    border: solid 1px #0000003e;
-    font-family: "Roboto", sans-serif;
-    width: calc(100% - 20px);
-    resize: none;
-  }
-  
-  .review-btn {
-    margin: 50px 0px;
-    padding: 10px;
-    background-color: #009dff;
-    border: solid 1px #009dff;
-    color: white;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-  .review-btn:hover {
-    background-color: #0086d8;
-  }
-  
+}

@@ -1,5 +1,5 @@
 import mongoose from "mongoose"
-import users from '../models/auth.js'
+import users from '../models/Auth.js'
 
 export const getallusers = async (req, res) => {
     try {

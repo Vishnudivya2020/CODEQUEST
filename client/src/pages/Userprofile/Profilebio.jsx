@@ -7,8 +7,8 @@ const Profilebio = ({currentprofile}) => {
         {currentprofile?.tags.length !==0? (
           <>
           <h4>Tags watched</h4>
-          {currentprofile?.tags.map((tag)=>(
-            <p key={tag}>{tag}</p>
+          {currentprofile?.tags.map((tag, index)=>(
+            <p key={index}>{tag}</p>
           ))}
           </>
         ):(

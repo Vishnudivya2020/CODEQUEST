@@ -12,7 +12,7 @@ function Homemainbar  ()  {
   const dispatch=useDispatch();
   const navigate = useNavigate();
   const questionlist = useSelector((state)=>state.questionreducer);
-
+ 
    useEffect(() => {
     dispatch(fetchallquestion()); //  Fetch questions 
   }, [dispatch]);
@@ -24,7 +24,9 @@ function Homemainbar  ()  {
     }else{
       navigate("/Askquestion")
     }
-  }
+  };
+
+ 
 
   // console.log("questionList",questionlist)
   return (
@@ -48,6 +50,7 @@ function Homemainbar  ()  {
         </>
       )
      }</div>
+    
      </div>
   )
 }

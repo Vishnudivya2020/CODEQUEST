@@ -1,4 +1,5 @@
-import jwt from "jsonwebtoken"
+import jwt from "jsonwebtoken";
+
 
 const auth=(req,res,next)=>{
     try {
@@ -11,3 +12,4 @@ const auth=(req,res,next)=>{
     }
 }
 export default auth;
+

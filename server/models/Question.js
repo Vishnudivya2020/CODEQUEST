@@ -10,6 +10,7 @@ const Questionschema=mongoose.Schema({
     userposted:{type:String,required:"Question must have an author"},
     userid:{type:String},
     askedon:{type:Date,default:Date.now},
+    videopath:{type:String,default:null},
     answer:[
         {
             answerbody:String,

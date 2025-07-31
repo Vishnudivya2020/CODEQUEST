@@ -23,7 +23,9 @@ const Userprofile = ({ slidein }) => {
         <section>
           <div className="user-details-container">
             <div className="user-details">
-              <Avatar backgroundColor="purple" color="white" fontSize="50px" px="40px" py="30px">{currentprofile.name.charAt(0).toUpperCase()}</Avatar>
+              <Avatar backgroundColor="purple" color="white" fontSize="50px" px="40px" py="30px">
+                {currentprofile.name.charAt(0).toUpperCase()}
+                </Avatar>
               <div className="user-name">
                 <h1>{currentprofile?.name}</h1>
                 <p>
@@ -32,7 +34,8 @@ const Userprofile = ({ slidein }) => {
               </div>
             </div>
             {currentuser?.result?._id === id && ( 
-              <button className="edit-profile-btn" type='button' onClick={() => setswitch(true)}><FontAwesomeIcon icon={faPen} /> Edit Profile</button>
+              <button className="edit-profile-btn" type='button' onClick={() => setswitch(true)}>
+                <FontAwesomeIcon icon={faPen} /> Edit Profile</button>
             )}
           </div>
           <>

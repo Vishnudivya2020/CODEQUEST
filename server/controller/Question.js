@@ -1,19 +1,40 @@
 import Question from "../models/Question.js";
 import mongoose from "mongoose";
 
+// export const Askquestion = async (req, res) => {
+//     const postquestiondata = req.body;
+//     const userid = req.userid;
+//     const videoPath = req.file ?  `/uploads/videos/${req.file.filename}` : null;
+//     const postquestion = new Question({ ...postquestiondata, userid,videopath:videoUrl })
+    
+//     try {
+//         await postquestion.save();
+//         console.log("RequestedData:",postquestion)
+//         res.status(200).json("Posted a question successfully");
+         
+//     } catch (error) {
+//         console.log(error)
+//         res.status(404).json("couldn't post a new question");
+//         return
+//     }
+// };
 export const Askquestion = async (req, res) => {
     const postquestiondata = req.body;
     const userid = req.userid;
-    const postquestion = new Question({ ...postquestiondata, userid })
+
     try {
+        const postquestion = new Question({ ...postquestiondata, userid });
+
         await postquestion.save();
+        console.log("Posted Question:", postquestion);
+
         res.status(200).json("Posted a question successfully");
     } catch (error) {
-        console.log(error)
-        res.status(404).json("couldn't post a new question");
-        return
+        console.error(error);
+        res.status(500).json("Couldn't post a new question");
     }
 };
+
 
 export const getallquestion = async (req, res) => {
     try {
