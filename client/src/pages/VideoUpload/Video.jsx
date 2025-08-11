@@ -18,8 +18,10 @@ const VideoUpload = ({ onVideoUploadSuccess }) => {
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState([]);
   const [body, setBody] = useState("");
-  const [userid, setUserid] = useState(localStorage.getItem("userId") || null);
+  // const [userid, setUserid] = useState(localStorage.getItem("userId") || null);
   const [statusMessage, setStatusMessage] = useState({ text: "", type: "" });
+  const userid = localStorage.getItem("userId") || null;
+
 
   const navigate = useNavigate(); 
 
@@ -27,7 +29,7 @@ const VideoUpload = ({ onVideoUploadSuccess }) => {
      const now = new Date();
   const hour = now.getHours();
 
-  if (hour < 14 || hour >= 19) {
+  if (hour < 10 || hour >= 19) {
     alert("⏰ Video uploads are allowed only between 2 PM and 7 PM.");
     setEmail(""); 
     return;

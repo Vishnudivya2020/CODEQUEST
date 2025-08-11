@@ -129,7 +129,7 @@ export const getLoginHistory = async (req, res) => {
         const history = await LoginHistory.find({ userId })
             .sort({ loginTime: -1 }) 
             .populate("userId","name email")
-            .limit(3); 
+            .limit(1); 
         res.status(200).json(history);
     } catch (error) {
         console.error("Error fetching login history:", error);

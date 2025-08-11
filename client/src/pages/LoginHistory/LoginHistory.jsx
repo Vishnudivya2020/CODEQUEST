@@ -30,12 +30,12 @@ const LoginHistory = () => {
                     {history.length > 0 ? (
                         history.map((entry, index) => (
                             <tr key={index}>
-                                <td>{new Date(entry.loginTime).toLocaleString()}</td>
-                                <td>{entry.ipAddress}</td>
-                                <td>{entry.browser}</td>
-                                <td>{entry.os}</td>
-                                <td>{entry.deviceType}</td>
-                                <td>{entry.otpVerified ? "✅" : "❌"}</td>
+                                <td data-label="Date">{new Date(entry.loginTime).toLocaleString()}</td>
+                                <td data-label="IP Address">{entry.ipAddress}</td>
+                                <td data-label="Browser">{entry.browser}</td>
+                                <td data-label="OS">{entry.os}</td>
+                                <td data-label="Device">{entry.deviceType}</td>
+                                <td data-label="OTP Verified">{entry.otpVerified ? "✅" : "❌"}</td>
                             </tr>
                         ))
                     ) : (

@@ -9,7 +9,6 @@ import Displayquestion from './Question/Displayquestion.jsx';
 import DisplayVideoquestion from "./Question/DisplayVideoquestion.jsx";
 import Userprofile from './Userprofile/Userprofile.jsx';
 import Users from './Users/Users.jsx';
-import Video from './VideoUpload/Video.jsx';
 import WatchVideo from '../component/videoList/Watchvideo.jsx';
 
 function Allroutes({ slidein, handleslidein }) {
