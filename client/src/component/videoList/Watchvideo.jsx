@@ -14,7 +14,7 @@ const WatchVideo = () => {
     <div style={{ textAlign: "center", padding: "20px" }}>
       <h2>Watch Video</h2>
       <video controls width="640" height="360">
-        <source src={`http://localhost:5000${videoPath}`} type="video/mp4" />
+        <source src={`https://codequest-n1rs.onrender.com${videoPath}`} type="video/mp4" />
         Your browser does not support the video tag.
       </video>
       <div>

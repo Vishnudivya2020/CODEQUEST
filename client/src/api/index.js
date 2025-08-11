@@ -2,8 +2,8 @@ import axios from "axios";
 
 
 const API = axios.create({
-    // baseURL: "https://codequest-n1rs.onrender.com"
-     baseURL:"http://localhost:5000"
+     baseURL: "https://codequest-n1rs.onrender.com"
+  
 });
 
 const token = localStorage.getItem("token");
