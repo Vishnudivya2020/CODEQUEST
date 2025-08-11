@@ -9,13 +9,21 @@ const API = axios.create({
 const token = localStorage.getItem("token");
 
 
+// API.interceptors.request.use((req) => {
+//     if (localStorage.getItem("Profile")) {
+//         req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem("Profile")).token
+//             }`;
+//     }
+//     return req;
+// })
 API.interceptors.request.use((req) => {
-    if (localStorage.getItem("Profile")) {
-        req.headers.Authorization = `Bearer ${JSON.parse(localStorage.getItem("Profile")).token
-            }`;
-    }
-    return req;
-})
+  const token = JSON.parse(localStorage.getItem("Profile"))?.token;
+  if (token) {
+    req.headers.Authorization = `Bearer ${String(token).replace(/[\r\n\s]+/g, '')}`;
+  }
+  return req;
+});
+
 
 export const login = (authdata) => API.post("user/login", authdata);
 export const sendOtp =async (email) =>{
