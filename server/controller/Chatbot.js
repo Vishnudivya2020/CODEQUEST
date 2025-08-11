@@ -3,10 +3,7 @@ import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 import axios from "axios";
 
-
-
 dotenv.config();
-
 
 // Utility to generate 6-digit OTP
 const generateOTP = () => Math.floor(100000 + Math.random() * 900000).toString();
@@ -30,14 +27,14 @@ export const sendOtp = async (req, res) => {
   }
 
   const otp = generateOTP();
-  await Otp.deleteMany({ email }); // Clear previous OTPs
+  await Otp.deleteMany({ email }); 
   await Otp.create({ email, otp ,purpose:"chatbot"});
 
   const mailOptions = {
     from: process.env.EMAIL_USERNAME,
     to: email,
     subject: 'Your OTP for Chatbot Access',
-    text: `Your OTP is ${otp}. It is valid for 5 minutes.`,
+    text: `Your OTP is ${otp}. It is valid for 2 minutes.`,
   };
 
   transporter.sendMail(mailOptions, (err, info) => {
@@ -60,7 +57,7 @@ export const verifyOtpAndAnswer = async (req, res) => {
     const response = await axios.post(
       "https://openrouter.ai/api/v1/chat/completions",
       {
-        model: "mistralai/mistral-7b-instruct", // Free model
+        model: "mistralai/mistral-7b-instruct", 
         messages: [
           {
             role: "system",

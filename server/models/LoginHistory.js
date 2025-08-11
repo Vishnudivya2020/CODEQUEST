@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const LoginHistorySchema = mongoose.Schema({
-    userId: { type: mongoose.Schema.Types.ObjectId, ref: "users" },
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     email: String,
     ipAddress: String,
     browser: String,

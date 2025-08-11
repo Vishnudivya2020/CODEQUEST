@@ -1,78 +1,60 @@
+
 .video-upload-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: start;
-   
-  min-height: 80vh;
-  padding: 40px 20px;
-  background: #f9f9f9;
-  font-family: 'Segoe UI', sans-serif;
+  max-width: 600px;
+  margin: 60px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
-.uploadHeading h3 {
+.uploadHeading {
+  text-align: center;
   margin-bottom: 30px;
+}
+
+.uploadHeading h2 {
+  font-size: 24px;
   color: #333;
-  font-size: 28px;
+  margin: 0;
 }
 
 .otpForm {
-  background: #fff;
-  padding: 30px 25px;
-  border-radius: 12px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 420px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 20px;
 }
 
 .emailInput,
-.otpForm input[type="text"],
-.otpForm input[type="file"] {
-  padding: 12px 13px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
+.otpForm input[type="text"] {
+  padding: 12px;
   font-size: 16px;
-  width: 390px;
-  margin-right:45px;
-  transition: border 0.2s;
-}
-
-.emailInput:focus,
-.otpForm input[type="text"]:focus,
-.otpForm input[type="file"]:focus {
-  border-color: #007bff;
-  outline: none;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .sendOtpButton {
   padding: 12px;
   font-size: 16px;
-  background-color: #007bff;
+  background-color: #4caf50;
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: background-color 0.3s;
 }
 
 .sendOtpButton:hover {
-  background-color: #0056b3;
+  background-color: #45a049;
 }
 
-.otpForm p {
-  font-size: 18px;
-  color: #28a745;
-  margin-top: -10px;
-}
 .status-message {
-  margin-top: 10px;
-  font-weight: 500;
+  font-size: 14px;
   padding: 10px;
   border-radius: 6px;
-  max-width: 400px;
+  text-align: center;
 }
 
 .status-message.success {
@@ -86,32 +68,48 @@
   background-color: #f8d7da;
   border: 1px solid #f5c6cb;
 }
-
-.status-message.info {
-  color: #0c5460;
-  background-color: #d1ecf1;
-  border: 1px solid #bee5eb;
-}
-
-.video-gallery {
-  margin-top: 40px;
-}
-
-.video-card {
-  background: #f3f3f3;
-  padding: 15px;
-  margin-bottom: 20px;
+.video-form-fields input[type="file"]
+.video-form-fields input[type="text"]
+.video-form-fields textarea{
+   width: 100%;
+  padding: 12px;
+  font-size: 15px;
+  border: 1px solid #ced4da;
   border-radius: 8px;
-  border: 1px solid #ddd;
+  background-color: #fefefe;
+  box-sizing: border-box;
+  transition: border-color 0.3s;
 }
 
-.status-message.info {
-  color: #0a58ca;
+.video-form-fields textarea{
+   resize: vertical;
+  min-height: 120px;
+  width:100%;
+  margin-top: 10px;
 }
-.status-message.success {
-  color: #198754;
+
+.video-form-fields input[type="text"]:focus,
+.video-form-fields input[type="file"]:focus,
+.video-form-fields textarea:focus {
+  border-color: #007bff;
+  outline: none;
 }
-.status-message.error {
-  color: #dc3545;
+.video-form-fields input[type="file"]{
+  padding:5px;
+}
+@media screen and (max-width: 600px) {
+  .video-form-fields {
+    padding: 20px;
+  }
+
+  .uploadHeading h2 {
+    font-size: 16px;
+  }
+
+   .video-form-fields input[type="file"]
+.video-form-fields input[type="text"]
+.video-form-fields textarea{
+    font-size: 14px;
+  }
 }
 

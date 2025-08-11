@@ -1,0 +1,30 @@
+.video-list-section {
+  margin: 20px;
+}
+
+.video-item {
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  background: #fcf7e7;
+}
+
+.video-item video {
+  display: block;
+  margin-top: 10px;
+}
+
+.video-item button{
+   padding: 10px 15px;
+    border-radius: 4px;
+    background-color: #009dff;
+    color: white;
+    border: none;
+    cursor:pointer;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.video-item button:hover{
+background-color: #0086d8;
+}

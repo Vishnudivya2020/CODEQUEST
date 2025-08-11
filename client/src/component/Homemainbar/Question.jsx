@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import moment from "moment"
 
-const Question = ({ question }) => {
+const Question = ({ question, }) => {
     return (
         <div className="display-question-container">
             <div className="display-votes-ans">
@@ -22,17 +22,8 @@ const Question = ({ question }) => {
                         ) + "..."
                         : question.questiontitle
                     }
+                
                 </Link>
-
-                {/* ✅ VIDEO DISPLAY */}
-                {question.video && (
-                    <div style={{ marginTop: '10px' }}>
-                        <video width="100%" height="auto" controls>
-                            <source src={`http://localhost:7000/uploads/${question.video}`} type="video/mp4" />
-                            Your browser does not support the video tag.
-                        </video>
-                    </div>
-                )}
                 <div className="display-tags-time">
                     <div className="display-tags">
                         {question.questiontags.map((tag) => (
@@ -49,3 +40,4 @@ const Question = ({ question }) => {
 }
 
 export default Question
+

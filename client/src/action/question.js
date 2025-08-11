@@ -32,7 +32,7 @@ export const deletequestion = (id, navigate) => async (dispatch) => {
 
 export const votequestion = (id, value) => async (dispatch) => {
     try {
-        await api.votequestion(id, value);
+        await api.voteTextquestion(id, value);
         dispatch(fetchallquestion())
     } catch (error) {
         console.log(error)

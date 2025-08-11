@@ -5,15 +5,18 @@ const otpSchema = new mongoose.Schema({
   otp: String,
    purpose: {
     type: String,
-    enum: ["login", "videoUpload", "chatbot"], // you can add more later
+    enum: ["login", "videoUpload", "chatbot"], 
     required: true,
+    
   },
+   verified: { type: Boolean, default: false },
   createdAt: {
     type: Date,
     default: Date.now,
-    expires: 300, // expires in 5 minutes
+    expires: 300, 
   },
-});
+   used: { type: Boolean, default: false },
+},{ timestamps: true });
 
 export default  mongoose.model('Otp', otpSchema);
 

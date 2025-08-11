@@ -1,7 +1,8 @@
 import React from 'react'
-import Question from './Question'
+import Question from './Question';
+
 function Questionlist({questionlist}) {
-  // console.log(questionlist)
+
   return (
     <>
     {questionlist.map((question)=>(
@@ -12,3 +13,4 @@ function Questionlist({questionlist}) {
 }
 
 export default Questionlist
+

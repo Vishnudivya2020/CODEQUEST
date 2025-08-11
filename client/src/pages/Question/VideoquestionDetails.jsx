@@ -1,25 +1,31 @@
-import React, { useState} from 'react'
+import React, { useState,useEffect } from 'react'
 import moment from 'moment'
 import copy from "copy-to-clipboard"
 import upvote from "../../assets/sort-up.svg"
 import downvote from "../../assets/sort-down.svg"
 import './Question.css'
 import Avatar from '../../component/Avatar/Avatar';
-import Displayanswer from './Displayanswer'
+import Displayvideoanswer from './DisplayVideoanswer'
 import { useSelector, useDispatch } from "react-redux"
 import { Link, useNavigate, useLocation, useParams } from 'react-router-dom'
-import { deletequestion, votequestion, postanswer } from '../../action/question'
+import { deletevideoquestion, votequestion, postvideoanswer,fetchallvideoquestion } from '../../action/Videoquestion'
 
 
-const Qustiondetails = () => {
+const VideoQuestiondetails = () => {
     const [answer, setanswer] = useState("")
     const dispatch = useDispatch()
-    const questionlist = useSelector((state) => state.questionreducer)
+    const videoquestionlist = useSelector((state) => state.videoquestionreducer)
     const { id } = useParams();
     const user = useSelector((state) => state.currentuserreducer)
     const location = useLocation()
     const navigate = useNavigate()
     const url = "https://codequest-n1rs.onrender.com"
+
+      useEffect(() => {
+        if (!videoquestionlist.data) {
+            dispatch(fetchallvideoquestion())
+        }
+    }, [dispatch, videoquestionlist.data])
 
     const handlepostans = (e, answerlength) => {
         e.preventDefault();
@@ -30,7 +36,7 @@ const Qustiondetails = () => {
             if (answer === "") {
                 alert("Enter an answer before submitting")
             } else {
-                dispatch(postanswer({
+                dispatch(postvideoanswer({
                     id,
                     noofanswers: answerlength + 1,
                     answerbody: answer,
@@ -47,7 +53,7 @@ const Qustiondetails = () => {
     }
 
     const handledelete = () => {
-        dispatch(deletequestion(id, navigate))
+        dispatch(deletevideoquestion(id, navigate))
     }
     const handleupvote = () => {
         if (user === null) {
@@ -67,14 +73,14 @@ const Qustiondetails = () => {
     }
     return (
         <div className="question-details-page">
-            {questionlist.data === null ? (
+            {videoquestionlist.data === null ? (
                 <h1>Loading...</h1>
             ) : (
                 <>
-                    {questionlist.data.filter((question) => question._id === id).map((question) => (
+                    {videoquestionlist.data.filter((question) => question._id === id).map((question) => (
                         <div key={question._id}>
                             <section className='question-details-container'>
-                                <h1>{question.questiontitle}</h1>
+                                <h1>{question.Videoquestiontitle}</h1>
                                 <div className="question-details-container-2">
                                     <div className="question-votes">
                                         <img src={upvote} alt="" width={18} className='votes-icon' onClick={handleupvote} />
@@ -82,10 +88,10 @@ const Qustiondetails = () => {
                                         <img src={downvote} alt="" width={18} className='votes-icon' onClick={handledownvote} />
                                     </div>
                                     <div style={{ width: "100%" }}>
-                                        <p className='question-body'>{question.questionbody}</p>
+                                        <p className='question-body'>{question.Videoquestionbody}</p>
 
                                         <div className="question-details-tags">
-                                            {question.questiontags.map((tag) => (
+                                            {question.Videoquestiontags.map((tag) => (
                                                 <p key={tag}>{tag}</p>
                                             ))}
                                         </div>
@@ -94,9 +100,13 @@ const Qustiondetails = () => {
                                                 <button type='button' onClick={handleshare}>
                                                     Share
                                                 </button>
-                                                {user?.result?._id === question?.userid && (
+                                             
+                                                {(user?.result?._id === question?.userid || user?.result?.email === question?.userposted) && (
                                                     <button type='button' onClick={handledelete}>Delete</button>
                                                 )}
+
+
+
                                             </div>
                                             <div>
                                                 <p>Asked {moment(question.askedon).fromNow()}</p>
@@ -114,7 +124,7 @@ const Qustiondetails = () => {
                             {question.noofanswers !== 0 && (
                                 <section>
                                     <h3>{question.noofanswers} Answers</h3>
-                                    <Displayanswer key={question._id} question={question} handleshare={handleshare} />
+                                    <Displayvideoanswer key={question._id} question={question} handleshare={handleshare} />
                                 </section>
                             )}
                             <section className="post-ans-container">
@@ -127,7 +137,7 @@ const Qustiondetails = () => {
                                     <input type="submit" className="post-ans-btn" value="Post your Answer" />
                                 </form>
                                 <p>Browse other Question tagged
-                                    {question.questiontags.map((tag) => (
+                                    {question.Videoquestiontags.map((tag) => (
                                         <Link to="/Tags" key={tag} className='ans-tag'>
                                             {" "}
                                             {tag}{" "}
@@ -148,6 +158,5 @@ const Qustiondetails = () => {
     )
 }
 
-export default Qustiondetails
-
+export default VideoQuestiondetails
 

@@ -8,4 +8,4 @@ import mongoose from "mongoose";
     joinedon:{type:Date,default:Date.now}
  })
 
- export default mongoose.model("User",userschema)
+export default mongoose.models.User || mongoose.model("User", userschema);

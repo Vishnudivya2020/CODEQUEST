@@ -1,4 +1,4 @@
-import users from '../models/Auth.js'
+import User from "../models/auth.js";
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken";
 import LoginHistory from '../models/LoginHistory.js';
@@ -13,12 +13,12 @@ const parser = new UAParser();
 export const signup = async (req, res) => {
     const { name, email, password } = req.body;
     try {
-        const extinguser = await users.findOne({ email });
+        const extinguser = await User.findOne({ email });
         if (extinguser) {
             return res.status(404).json({ message: "User already exist" });
         }
         const hashedpassword = await bcrypt.hash(password, 12);
-        const newuser = await users.create({
+        const newuser = await User.create({
             name,
             email,
             password: hashedpassword
@@ -59,7 +59,7 @@ export const login = async (req, res) => {
     const currentHour = new Date().getHours();
 
     try {
-        const existingUser = await users.findOne({ email });
+        const existingUser = await User.findOne({ email });
         if (!existingUser) {
             return res.status(404).json({ message: "User does not exist" });
         }
@@ -76,11 +76,11 @@ export const login = async (req, res) => {
 
         // If Chrome browser, trigger OTP
         const otpRequiredBrowsers = ["chrome"]
-        // if (browser === "Chrome" || browser === "Edge") {
+
         if (otpRequiredBrowsers.includes(browser)) {
             if (!otp) {
                 // Send OTP
-                const sent = await sendOTP({email , purpose:"login"}); // implement sendOTP(email)
+                const sent = await sendOTP({email , purpose:"login"});
                 if (sent) {
                     return res.status(401).json({ message: "OTP sent to email. Please verify OTP." });
                 } else {
@@ -88,7 +88,7 @@ export const login = async (req, res) => {
                 }
             } else {
                 // Verify OTP
-                const isOtpValid = await verifyOTP({email, otp, purpose: "login"}); // implement verifyOTP(email, otp)
+                const isOtpValid = await verifyOTP({email, otp, purpose: "login"}); 
                 if (!isOtpValid) {
                     return res.status(403).json({ message: "Invalid or expired OTP" });
                 }
@@ -119,5 +119,20 @@ export const login = async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(500).json("Something went wrong...");
+    }
+};
+
+
+export const getLoginHistory = async (req, res) => {
+    try {
+        const userId = req.userId; 
+        const history = await LoginHistory.find({ userId })
+            .sort({ loginTime: -1 }) 
+            .populate("userId","name email")
+            .limit(3); 
+        res.status(200).json(history);
+    } catch (error) {
+        console.error("Error fetching login history:", error);
+        res.status(500).json({ message: "Server error fetching login history" });
     }
 };

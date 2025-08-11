@@ -8,12 +8,12 @@ import userroutes from "./routes/user.js"
 import questionroutes from "./routes/question.js"
 import answerroutes from "./routes/answer.js";
 import chatbotRoutes from "./routes/chatbotRouter.js"
-import videoRoutes from './routes/videoRouter.js'
+import videoQuestionRoutes from './routes/videoQuestionRouter.js'
 import ffmpeg from 'fluent-ffmpeg';
-// import ffmpegPath from 'ffmpeg-static'
 import ffmpegInstaller from '@ffmpeg-installer/ffmpeg';
-
 import authRoutes from "./routes/authRoutes.js";
+import videoUploadRoutes from './routes/videoUpload.js';
+import VideoAnswerRoutes from './routes/Videoanswer.js'
 
 ffmpeg.setFfmpegPath(ffmpegInstaller.path);
 
@@ -25,14 +25,9 @@ app.use(express.json());
 dotenv.config();
 app.use(express.json({ limit: "30mb", extended: true }))
 app.use(express.urlencoded({ limit: "30mb", extended: true }))
-//  app.use(cors());
-
-//  connectDB();Z
- 
-// const cors = require("cors");
 
 app.use(cors({
-    origin: "http://localhost:3000", // Allow only your frontend origin
+    origin: "http://localhost:3000", 
     credentials: true
 }));
 
@@ -41,9 +36,11 @@ app.use("/user", userroutes);
 app.use('/questions', questionroutes)
 app.use('/answer',answerroutes)
 app.use('/api/chatbot', chatbotRoutes);
-app.use("/api/video",videoRoutes)
-app.use('/auth',authRoutes)
+app.use("/video",videoQuestionRoutes)
+app.use('/',authRoutes)
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/api/videoupload', videoUploadRoutes);  
+app.use("/videoanswer", VideoAnswerRoutes);
 
 
 

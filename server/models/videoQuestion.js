@@ -1,0 +1,23 @@
+import mongoose from "mongoose";
+
+const videoQuestionschema=mongoose.Schema({
+    Videoquestiontitle:{type:String,required:"Question must have a title"},
+    Videoquestionbody:{type:String,required:"Question must have a body"},
+    Videoquestiontags:{type:[String],required:"Question must have a tags"},
+    noofanswers:{type:Number,default:0},
+    upvote:{type:[String],default:[]},
+    downvote:{type:[String],default:[]},
+    userposted:{type:String,required:"Question must have an author"},
+    userid:{type:String},
+    askedon:{type:Date,default:Date.now},
+    videopath:{type:String,default:null},
+    answer:[
+        {
+            answerbody:String,
+            useranswered:String,
+            userid:String,
+            answeredon:{type:Date,default:Date.now}
+        },
+    ],
+});
+export default mongoose.model("videoQuestion",videoQuestionschema)

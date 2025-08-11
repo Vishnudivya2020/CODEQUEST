@@ -34,11 +34,20 @@ export const login =(authData,naviagte)=> async(dispatch)=>{
 
 // OTP-triggered login flow
 export const sendOtpLogin = (email) => async () => {
-    return await api.sendOtp(email); // calls /api/login/send-otp
+    return await api.sendOtp(email); 
 };
 
 export const verifyOtpLogin = (email, otp) => async (dispatch) => {
     const data = await api.verifyOtp(email, otp);
     dispatch({ type: "AUTH", data });
     dispatch(setcurrentuser(JSON.parse(localStorage.getItem("Profile"))));
+};
+
+export const getLoginHistory = () => async (dispatch) => {
+    try {
+        const { data } = await api.fetchLoginHistory();
+        dispatch({ type: "SET_LOGIN_HISTORY", payload: data });
+    } catch (error) {
+        console.error("Error fetching login history", error);
+    }
 };

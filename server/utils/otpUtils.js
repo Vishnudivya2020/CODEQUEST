@@ -1,4 +1,4 @@
-// controllers/otpController.js
+
 import Otp from "../models/Otp.js";
 import nodemailer from "nodemailer";
 import otpGenerator from "otp-generator";
@@ -40,7 +40,7 @@ export const sendOTP = async ({email,purpose}) => {
 };
 
 
-// Verify OTP
+
 export const verifyOTP = async ({ email, otp, purpose = "login" }) => {
   const record = await Otp.findOne({ email, purpose });
 
@@ -52,9 +52,9 @@ export const verifyOTP = async ({ email, otp, purpose = "login" }) => {
     throw new Error("Invalid OTP");
   }
 
-  //  delete OTP after verification
+ 
   await Otp.deleteOne({ _id: record._id });
 
-  return true; // OTP verified successfully
+  return true; 
 };
 
