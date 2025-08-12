@@ -29,7 +29,7 @@ const VideoUpload = ({ onVideoUploadSuccess }) => {
      const now = new Date();
   const hour = now.getHours();
 
-  if (hour < 10 || hour >= 19) {
+  if (hour < 14 || hour >= 19) {
     alert("⏰ Video uploads are allowed only between 2 PM and 7 PM.");
     setEmail(""); 
     return;
