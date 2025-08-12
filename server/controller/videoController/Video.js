@@ -14,6 +14,15 @@ export const sendVideoOtp = async (req, res) => {
     const { email } = req.body;
     if (!email) return res.status(400).json({ message: "Email is required" });
 
+    const now = new Date();
+    const istOffset = 5.5 * 60 * 60 * 1000; // IST offset in ms
+    const istTime = new Date(now.getTime() + istOffset);
+    const hour = istTime.getUTCHours();
+    
+    if (hour < 14 || hour >= 19) { // 2 PM to 7 PM IST
+      return res.status(403).json({ message: "⏰ Video uploads are allowed only between 2 PM and 7 PM IST." });
+    }
+    
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
 
     await Otp.create({ email, otp, purpose: "videoUpload" });
@@ -100,13 +109,7 @@ export const uploadVideo = async (req, res) => {
   const fileSizeInMB = req.file.size / (1024 * 1024);
   const filename = req.file.filename;
 
-  const now = new Date();
-  const hour = now.getHours();
-
-  if (hour < 14 || hour >= 19) {
-    fs.unlinkSync(filePath); 
-    return res.status(403).json({ message: 'Video uploads are allowed only between 2 PM and 7 PM' });
-  }
+  
 
   if (fileSizeInMB > 50) {
     fs.unlinkSync(filePath); 
@@ -167,27 +170,15 @@ export const uploadVideo = async (req, res) => {
   });
 };
 
-// export const getAllVideos = async (req, res) => {
-//   try {
-//     const videos = await videoQuestion.find().sort({ uploadedAt: -1 });
-//     res.status(200).json(videos);
-//   } catch (err) {
-//     res.status(500).json({ message: "Failed to fetch videos" });
-//   }
-
-
-
 export const getAllVideos = async (req, res) => {
   try {
-    const videos = await videoQuestion.find(
-      {}, 
-      { loginHistory: 0 } 
-    ).lean();
-
+    const videos = await videoQuestion.find().sort({ uploadedAt: -1 });
     res.status(200).json(videos);
-  } catch (error) {
-    console.error("Error fetching videos:", error);
-    res.status(500).json({ message: "Error fetching videos" });
+  } catch (err) {
+    res.status(500).json({ message: "Failed to fetch videos" });
   }
-};
+}
+
+
+
 

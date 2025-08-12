@@ -95,7 +95,7 @@ export const verifyOtpAnswer = async (email, otp, question) => {
 // Send OTP for video upload
 export const sendVideoOtp = async (email, purpose) => {
     try {
-        const res = await API.post("/api/videoupload/send-otp", { email, purpose }); // ✅ fixed path
+        const res = await API.post("/api/videoupload/send-otp", { email, purpose }); 
         return res.data;
     } catch (err) {
         console.log("Error sending OTP for video upload:", err);
@@ -106,7 +106,7 @@ export const sendVideoOtp = async (email, purpose) => {
 //  Verify OTP for video upload
 export const verifyVideoOtp = async (email, otp) => {
     try {
-        const res = await API.post("/api/videoupload/verify-otp", { email, otp }); // ✅ fixed path
+        const res = await API.post("/api/videoupload/verify-otp", { email, otp }); 
         return res.data;
     } catch (err) {
         console.log("Error verifying OTP for video upload:", err);

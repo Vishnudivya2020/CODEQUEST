@@ -1,4 +1,5 @@
 
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import './video.css';
@@ -18,29 +19,32 @@ const VideoUpload = ({ onVideoUploadSuccess }) => {
   const [title, setTitle] = useState("");
   const [tags, setTags] = useState([]);
   const [body, setBody] = useState("");
-  // const [userid, setUserid] = useState(localStorage.getItem("userId") || null);
   const [statusMessage, setStatusMessage] = useState({ text: "", type: "" });
+  const [uploadProgress, setUploadProgress] = useState(0);
   const userid = localStorage.getItem("userId") || null;
 
-
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleSendOtp = async () => {
-     const now = new Date();
-  const hour = now.getHours();
+    const now = new Date();
+    const hour = now.getHours();
 
-  if (hour < 14 || hour >= 19) {
-    alert("⏰ Video uploads are allowed only between 2 PM and 7 PM.");
-    setEmail(""); 
-    return;
-  }
+    if (hour < 14 || hour >= 19) {
+      alert("⏰ Video uploads are allowed only between 2 PM and 7 PM.");
+      setEmail("");
+      return;
+    }
     if (!email) return alert("Please enter your email");
+
     try {
       const res = await sendVideoOtp(email, "Video upload request");
       setStatusMessage({ text: res.message || "OTP sent", type: "info" });
       setOtpSent(true);
-    } catch {
-      setStatusMessage({ text: "Failed to send OTP", type: "error" });
+      alert(res.message || "✅ OTP sent successfully!"); // ✅ Added alert
+    } catch (error) {
+      const msg = error.response?.data?.message || "Failed to send OTP";
+      alert(msg);
+      setStatusMessage({ text: msg, type: "error" });
     }
   };
 
@@ -51,17 +55,21 @@ const VideoUpload = ({ onVideoUploadSuccess }) => {
       if (res.success) {
         setOtpVerified(true);
         setStatusMessage({ text: "OTP verified", type: "success" });
+        alert("✅ OTP verified successfully!");
       } else {
         setStatusMessage({ text: "Invalid OTP", type: "error" });
+        alert("❌ Invalid OTP");
       }
     } catch {
       setStatusMessage({ text: "Verification failed", type: "error" });
+      alert("❌ OTP verification failed");
     }
   };
 
   const handleUploadVideo = async () => {
     if (!otpVerified) {
       setStatusMessage({ text: "Verify OTP first", type: "error" });
+      alert("Please verify OTP before uploading.");
       return;
     }
 
@@ -76,22 +84,22 @@ const VideoUpload = ({ onVideoUploadSuccess }) => {
     formData.append("video", video);
 
     try {
-      const res = await uploadVideo(formData);
+      const res = await uploadVideo(formData, {
+        onUploadProgress: (progressEvent) => {
+          const percent = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+          setUploadProgress(percent);
+        }
+      });
+
       setStatusMessage({ text: res.message || "Uploaded", type: "success" });
 
       if (res?.video?.videoUrl) {
         onVideoUploadSuccess?.(res.video.videoUrl);
       }
 
-      
-      alert("Video uploaded successfully!");
+      alert("🎉 Video uploaded successfully!");
+      setTimeout(() => navigate("/"), 500);
 
-     
-      setTimeout(() => {
-        navigate("/");
-      }, 500); 
-
-     
       setTitle("");
       setBody("");
       setTags([]);
@@ -99,9 +107,11 @@ const VideoUpload = ({ onVideoUploadSuccess }) => {
       setOtp("");
       setOtpVerified(false);
       setOtpSent(false);
+      setUploadProgress(0);
     } catch (error) {
       const msg = error.response?.data?.message || "Upload failed";
       setStatusMessage({ text: msg, type: "error" });
+      alert(`❌ ${msg}`);
     }
   };
 
@@ -155,6 +165,10 @@ const VideoUpload = ({ onVideoUploadSuccess }) => {
             <button onClick={handleUploadVideo} className="sendOtpButton">
               Upload Video
             </button>
+
+            {uploadProgress > 0 && (
+              <p>⏳ Uploading: {uploadProgress}%</p>
+            )}
           </>
         )}
 
