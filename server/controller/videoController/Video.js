@@ -103,7 +103,7 @@ export const uploadVideo = async (req, res) => {
   const now = new Date();
   const hour = now.getHours();
 
-  if (hour < 10 || hour >= 19) {
+  if (hour < 14 || hour >= 19) {
     fs.unlinkSync(filePath); 
     return res.status(403).json({ message: 'Video uploads are allowed only between 2 PM and 7 PM' });
   }
